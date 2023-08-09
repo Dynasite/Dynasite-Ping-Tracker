@@ -3,6 +3,7 @@ package org.dynasite;
 import fi.iki.elonen.NanoHTTPD;
 
 import java.net.URI;
+import java.util.Map;
 
 /**
  * Basic implementable representation of a webpage or other web content
@@ -18,11 +19,13 @@ public abstract class Page {
         this.uri = uri;
     }
 
-    public NanoHTTPD.Response getPageResponse() {
+    public NanoHTTPD.Response getPageResponse(Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
         return NanoHTTPD.newFixedLengthResponse(
-                NanoHTTPD.Response.Status.OK, NanoHTTPD.MIME_HTML, "<h1>Default Dynasite Page</h1>"
+                NanoHTTPD.Response.Status.OK, NanoHTTPD.MIME_HTML, this.respond(headers, session)
         );
     }
+
+    public abstract String respond(Map<String, String> headers, NanoHTTPD.IHTTPSession session);
 
     public URI getUri() {
         return uri;
