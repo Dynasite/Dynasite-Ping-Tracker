@@ -11,6 +11,9 @@ public class Main {
 
     public static void main(String[] args) {
         LOG.info("Starting Dynasite with arguments: " + Arrays.toString(args));
+        Dynasite dynasite = new Dynasite(80, Server.PAGE_NOT_FOUND_SERVER);
+        dynasite.start();
+        LOG.info("Site started at: " + dynasite.getHostURL());
     }
 
 }

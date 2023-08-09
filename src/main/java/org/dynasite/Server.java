@@ -16,6 +16,11 @@ public abstract class Server {
         public Page servePage(String uri, Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
             return Page.PAGE_NOT_FOUND;
         }
+
+        @Override
+        public void handleServerError(Exception error) {
+            System.err.println("Server error: " + error);
+        }
     };
 
     public NanoHTTPD.Response serve(NanoHTTPD.IHTTPSession session) {
@@ -27,4 +32,5 @@ public abstract class Server {
 
     public abstract Page servePage(String uri, Map<String, String> headers, NanoHTTPD.IHTTPSession session);
 
+    public abstract void handleServerError(Exception error);
 }
