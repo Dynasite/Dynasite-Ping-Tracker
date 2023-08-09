@@ -13,6 +13,20 @@ import java.util.Map;
  */
 public abstract class Page {
 
+    public static final Page PAGE_NOT_FOUND = new Page(null) {
+        @Override
+        public String respond(Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
+            return "<h1>Page Not Found!</h1>";
+        }
+
+        @Override
+        public NanoHTTPD.Response getPageResponse(Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
+            return NanoHTTPD.newFixedLengthResponse(
+                    NanoHTTPD.Response.Status.NOT_FOUND, NanoHTTPD.MIME_HTML, this.respond(headers, session)
+            );
+        }
+    };
+
     private final URI uri;
 
     protected Page(URI uri) {
