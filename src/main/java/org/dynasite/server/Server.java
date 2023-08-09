@@ -1,6 +1,9 @@
-package org.dynasite;
+package org.dynasite.server;
 
 import fi.iki.elonen.NanoHTTPD;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.dynasite.page.Page;
 
 import java.util.Map;
 
@@ -11,15 +14,18 @@ import java.util.Map;
  */
 public abstract class Server {
 
+    private static final Logger LOG = LogManager.getLogger();
+
     public static final Server PAGE_NOT_FOUND_SERVER = new Server() {
         @Override
         public Page servePage(String uri, Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
+            LOG.info("Serving page at: " + uri);
             return Page.PAGE_NOT_FOUND;
         }
 
         @Override
         public void handleServerError(Exception error) {
-            System.err.println("Server error: " + error);
+            LOG.error("Page Not Found Server error: " + error);
         }
     };
 

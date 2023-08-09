@@ -1,4 +1,4 @@
-package org.dynasite;
+package org.dynasite.page;
 
 import fi.iki.elonen.NanoHTTPD;
 
@@ -14,15 +14,11 @@ import java.util.Map;
 public abstract class Page {
 
     public static final Page PAGE_NOT_FOUND = new Page(null) {
-        @Override
-        public String respond(Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
-            return "<h1>Page Not Found!</h1>";
-        }
 
         @Override
         public NanoHTTPD.Response getPageResponse(Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
             return NanoHTTPD.newFixedLengthResponse(
-                    NanoHTTPD.Response.Status.NOT_FOUND, NanoHTTPD.MIME_HTML, this.respond(headers, session)
+                    NanoHTTPD.Response.Status.NOT_FOUND, NanoHTTPD.MIME_HTML, "<h1>Page Not Found!</h1>"
             );
         }
     };
@@ -33,13 +29,7 @@ public abstract class Page {
         this.uri = uri;
     }
 
-    public NanoHTTPD.Response getPageResponse(Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
-        return NanoHTTPD.newFixedLengthResponse(
-                NanoHTTPD.Response.Status.OK, NanoHTTPD.MIME_HTML, this.respond(headers, session)
-        );
-    }
-
-    public abstract String respond(Map<String, String> headers, NanoHTTPD.IHTTPSession session);
+    public abstract NanoHTTPD.Response getPageResponse(Map<String, String> headers, NanoHTTPD.IHTTPSession session);
 
     public URI getUri() {
         return uri;

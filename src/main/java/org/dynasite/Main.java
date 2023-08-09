@@ -2,6 +2,7 @@ package org.dynasite;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.dynasite.server.Server;
 
 import java.util.Arrays;
 

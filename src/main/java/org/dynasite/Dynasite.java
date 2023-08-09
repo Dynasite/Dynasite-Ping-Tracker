@@ -1,6 +1,7 @@
 package org.dynasite;
 
 import fi.iki.elonen.NanoHTTPD;
+import org.dynasite.server.Server;
 
 import java.io.IOException;
 import java.util.Objects;
