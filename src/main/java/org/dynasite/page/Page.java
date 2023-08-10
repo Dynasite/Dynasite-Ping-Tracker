@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public abstract class Page {
 
-    public static final Page PAGE_NOT_FOUND = new Page(null) {
+    public static final Page PAGE_NOT_FOUND = new Page() {
 
         @Override
         public NanoHTTPD.Response getPageResponse(Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
@@ -24,6 +24,10 @@ public abstract class Page {
     };
 
     private final URI uri;
+
+    protected Page() {
+        this.uri = null;
+    }
 
     protected Page(URI uri) {
         this.uri = uri;
