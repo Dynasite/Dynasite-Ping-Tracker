@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.dynasite.page.Page;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Represents a Page Server, which is responsible for serving
@@ -33,10 +34,18 @@ public abstract class Server {
         String uri = session.getUri();
         Map<String, String> headers = session.getHeaders();
 
-        return this.servePage(uri, headers, session).getPageResponse(headers, session);
+        Page page = null;
+        try {
+            page = this.servePage(uri, headers, session);
+        } catch (Exception e) {
+            LOG.error("Internal server error encountered serving page.", e);
+            return Page.INTERNAL_SERVER_ERROR.getPageResponse(headers, session);
+        }
+
+        return Objects.requireNonNullElse(page, Page.PAGE_NOT_FOUND).getPageResponse(headers, session);
     }
 
-    public abstract Page servePage(String uri, Map<String, String> headers, NanoHTTPD.IHTTPSession session);
+    public abstract Page servePage(String uri, Map<String, String> headers, NanoHTTPD.IHTTPSession session) throws Exception;
 
     public abstract void handleServerError(Exception error);
 }

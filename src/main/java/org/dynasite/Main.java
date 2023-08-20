@@ -2,8 +2,10 @@ package org.dynasite;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.dynasite.server.ExternalFileServer;
 import org.dynasite.server.Server;
 
+import java.io.File;
 import java.util.Arrays;
 
 public class Main {
@@ -12,7 +14,7 @@ public class Main {
 
     public static void main(String[] args) {
         LOG.info("Starting Dynasite with arguments: " + Arrays.toString(args));
-        Dynasite dynasite = new Dynasite(80, Server.PAGE_NOT_FOUND_SERVER);
+        Dynasite dynasite = new Dynasite(80, new ExternalFileServer(new File("C:/Users/lukem/Desktop/WebServerFiles")));
         dynasite.start();
         LOG.info("Site started at: " + dynasite.getHostURL());
     }
