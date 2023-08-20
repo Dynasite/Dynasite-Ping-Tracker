@@ -31,7 +31,6 @@ public class ExternalFileServer extends Server {
         File requestedFile = new File(requestedFilePath);
         if(requestedFile.exists() && requestedFile.isFile()) {
             LOG.info("Found file: " + requestedFile.getAbsolutePath());
-
         } else {
             LOG.warn("Couldn't find file: " + requestedFile.getAbsolutePath());
             return null;

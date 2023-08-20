@@ -3,6 +3,7 @@ package org.dynasite.server;
 import fi.iki.elonen.NanoHTTPD;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.dynasite.page.ErrorPage;
 import org.dynasite.page.Page;
 
 import java.util.Map;
@@ -17,6 +18,7 @@ public abstract class Server {
 
     private static final Logger LOG = LogManager.getLogger();
 
+    @SuppressWarnings("unused")
     public static final Server PAGE_NOT_FOUND_SERVER = new Server() {
         @Override
         public Page servePage(String uri, Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
@@ -34,12 +36,12 @@ public abstract class Server {
         String uri = session.getUri();
         Map<String, String> headers = session.getHeaders();
 
-        Page page = null;
+        Page page;
         try {
             page = this.servePage(uri, headers, session);
         } catch (Exception e) {
             LOG.error("Internal server error encountered serving page.", e);
-            return Page.INTERNAL_SERVER_ERROR.getPageResponse(headers, session);
+            return new ErrorPage(e).getPageResponse(headers, session);
         }
 
         return Objects.requireNonNullElse(page, Page.PAGE_NOT_FOUND).getPageResponse(headers, session);

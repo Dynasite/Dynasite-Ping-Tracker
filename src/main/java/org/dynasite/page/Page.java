@@ -23,15 +23,6 @@ public abstract class Page {
         }
     };
 
-    public static final Page INTERNAL_SERVER_ERROR = new Page() {
-        @Override
-        public NanoHTTPD.Response getPageResponse(Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
-            return NanoHTTPD.newFixedLengthResponse(
-                    NanoHTTPD.Response.Status.INTERNAL_ERROR, NanoHTTPD.MIME_HTML, "<h1>Internal Server Error!</h1>"
-            );
-        }
-    };
-
     private final URI uri;
 
     protected Page() {
