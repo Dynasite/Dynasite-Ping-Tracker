@@ -11,6 +11,8 @@ import java.util.Objects;
  */
 public class Dynasite {
 
+    public static String host = "http://localhost";
+
     public static int timeout = 1000; //Default 1 second timeout
 
     private final int port;
@@ -25,16 +27,18 @@ public class Dynasite {
         this.nanoServer = new NanoServer();
     }
 
+    @SuppressWarnings("unused")
     public int getPort() {
         return port;
     }
 
+    @SuppressWarnings("unused")
     public Server getServer() {
         return server;
     }
 
     public String getHostURL() {
-        return "http://localhost:" + this.port;
+        return host + ":" + this.port;
     }
 
     public void start() {

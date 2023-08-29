@@ -30,12 +30,14 @@ public abstract class Page {
         this.uri = null;
     }
 
+    @SuppressWarnings("unused")
     protected Page(URI uri) {
         this.uri = uri;
     }
 
     public abstract NanoHTTPD.Response getPageResponse(Map<String, String> headers, NanoHTTPD.IHTTPSession session);
 
+    @SuppressWarnings("unused")
     public URI getUri() {
         return uri;
     }

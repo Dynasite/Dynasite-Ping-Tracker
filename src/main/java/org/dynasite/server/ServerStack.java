@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 import org.dynasite.page.Page;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class ServerStack extends Server {
 
@@ -19,6 +18,7 @@ public class ServerStack extends Server {
     }
 
     @Override
+    @SuppressWarnings("RedundantThrows")
     public Page servePage(String uri, Map<String, String> headers, NanoHTTPD.IHTTPSession session) throws Exception {
         Page page = getFirstPageOrNull(uri, session);
 
