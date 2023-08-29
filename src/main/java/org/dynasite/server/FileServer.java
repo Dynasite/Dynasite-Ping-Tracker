@@ -38,9 +38,4 @@ public class FileServer extends Server {
             return null;
         }
     }
-
-    @Override
-    public void handleServerError(Exception error) {
-        LOG.fatal("Error starting External File Server.", error);
-    }
 }

@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public abstract class Page {
 
-    public static final Page PAGE_NOT_FOUND = new Page() {
+    public static Page default404Page = new Page() {
 
         @Override
         public NanoHTTPD.Response getPageResponse(Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
@@ -21,6 +21,7 @@ public abstract class Page {
                     NanoHTTPD.Response.Status.NOT_FOUND, NanoHTTPD.MIME_HTML, "<h1>Page Not Found!</h1>"
             );
         }
+
     };
 
     private final URI uri;

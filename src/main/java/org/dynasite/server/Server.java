@@ -18,20 +18,6 @@ public abstract class Server {
 
     private static final Logger LOG = LogManager.getLogger();
 
-    @SuppressWarnings("unused")
-    public static final Server PAGE_NOT_FOUND_SERVER = new Server() {
-        @Override
-        public Page servePage(String uri, Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
-            LOG.info("Serving page at: " + uri);
-            return Page.PAGE_NOT_FOUND;
-        }
-
-        @Override
-        public void handleServerError(Exception error) {
-            LOG.error("Page Not Found Server error: " + error);
-        }
-    };
-
     public NanoHTTPD.Response serve(NanoHTTPD.IHTTPSession session) {
         String uri = session.getUri();
         Map<String, String> headers = session.getHeaders();
@@ -39,15 +25,19 @@ public abstract class Server {
         Page page;
         try {
             page = this.servePage(uri, headers, session);
-        } catch (Exception e) {
-            LOG.error("Internal server error encountered serving page.", e);
-            return new ErrorPage(e).getPageResponse(headers, session);
+        } catch (Exception exception) {
+            Page errorPage = this.handleServerError(exception, uri, session);
+            errorPage = Objects.requireNonNullElse(errorPage, new ErrorPage(exception));
+            return errorPage.getPageResponse(headers, session);
         }
 
-        return Objects.requireNonNullElse(page, Page.PAGE_NOT_FOUND).getPageResponse(headers, session);
+        return Objects.requireNonNullElse(page, Page.default404Page).getPageResponse(headers, session);
     }
 
     public abstract Page servePage(String uri, Map<String, String> headers, NanoHTTPD.IHTTPSession session) throws Exception;
 
-    public abstract void handleServerError(Exception error);
+    public Page handleServerError(Exception error, String URI, NanoHTTPD.IHTTPSession session) {
+        LOG.error("Internal server error encountered serving page, with uri: " + URI, error);
+        return new ErrorPage(error);
+    }
 }

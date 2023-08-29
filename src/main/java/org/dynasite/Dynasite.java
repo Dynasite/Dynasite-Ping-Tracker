@@ -41,7 +41,7 @@ public class Dynasite {
         try {
             nanoServer.start(timeout, false);
         } catch (IOException e) {
-            server.handleServerError(e);
+            server.handleServerError(e, null, null);
         }
     }
 
