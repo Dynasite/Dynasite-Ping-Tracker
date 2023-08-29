@@ -8,12 +8,24 @@ import java.io.*;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Represents a webpage for a local file, or more simply:
+ * allows turning any local {@link File} into a {@link Page} which
+ * can be served by either a {@link org.dynasite.server.FileServer}
+ * or any other {@link org.dynasite.server.Server}.
+ */
 public class FilePage extends Page {
 
     private static final Logger LOG = LogManager.getLogger();
 
     private final File file;
 
+    /**
+     * Creates a new webpage from a given {@link File}
+     * for serving the file over the web.
+     *
+     * @param file the given {@link File} to serve as a webpage.
+     */
     public FilePage(File file) {
         this.file = Objects.requireNonNull(file);
     }
