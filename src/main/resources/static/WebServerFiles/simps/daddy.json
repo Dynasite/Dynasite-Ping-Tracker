@@ -1,0 +1,21 @@
+{
+  "description": "Not a simp. For use in comparisons. ",
+  "simping-spree": false,
+
+  "grading": {
+    "grade": "A",
+    "comment": "Doesn't simp."
+  },
+
+  "activity": {
+    "current": 0.0,
+    "previous": 0.0
+  },
+
+  "history": {
+    "height": 300,
+    "graph": {
+      "2021": 0.0
+    }
+  }
+}

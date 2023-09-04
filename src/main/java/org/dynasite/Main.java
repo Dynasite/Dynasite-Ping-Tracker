@@ -2,12 +2,8 @@ package org.dynasite;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.dynasite.server.FileServer;
-import org.dynasite.server.HostServer;
-import org.dynasite.server.Server;
-import org.dynasite.server.ServerStack;
+import org.dynasite.server.*;
 
-import java.io.File;
 import java.util.Arrays;
 
 public class Main {
@@ -18,8 +14,7 @@ public class Main {
         LOG.info("Starting Dynasite with arguments: " + Arrays.toString(args));
 
         Server server = new ServerStack(
-                new FileServer(new File("C:/Users/lukem/Desktop/WebServerFiles")),
-                new FileServer(new File("C:/Users/lukem/Desktop/WebServerFiles2"))
+                new ResourceServer("static/WebServerFiles")
         );
 
         Dynasite dynasite = new Dynasite(new HostServer(80, server));

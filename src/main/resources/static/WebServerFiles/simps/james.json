@@ -1,0 +1,30 @@
+{
+  "description": "The biggest simp of them all.",
+  "simping-spree": false,
+
+  "grading": {
+    "grade": "F-",
+    "comment": "Still fuck'n simping..."
+  },
+
+  "activity": {
+    "current": 500,
+    "previous": 200
+  },
+
+  "history": {
+    "height": 40000,
+    "graph": {
+      "2014": 8.10,
+      "2015": 8.75,
+      "2016": 10.00,
+      "2017": 8.50,
+      "2018": 6.50,
+      "2019": 9.00,
+      "2020": 16.50,
+      "2021": 100000.00,
+      "June 2021": 200000,
+      "April 2023": 595000
+    }
+  }
+}
