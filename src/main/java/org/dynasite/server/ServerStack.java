@@ -7,12 +7,25 @@ import org.dynasite.page.Page;
 
 import java.util.*;
 
+/**
+ * A {@link Server} implementation which allows combining a list
+ * of other {@link Server Servers} into one. The first Server in the
+ * list to have a valid response {@link Page} will be responsible
+ * for serving said Page, otherwise the next Server in the list
+ * will be tried and so on and so forth. Any errors raised by a
+ * Server impl are handled by the same Server impl.
+ */
 public class ServerStack extends Server {
 
     private static final Logger LOG = LogManager.getLogger();
 
     private final List<Server> servers = new ArrayList<>();
 
+    /**
+     * Creates a new Server Stack from a list of {@link Server Servers}.
+     *
+     * @param servers the list of Server implementations to combine into one.
+     */
     public ServerStack(Server... servers) {
         this.servers.addAll(Arrays.asList(servers));
     }
@@ -51,6 +64,9 @@ public class ServerStack extends Server {
         }
     }
 
+    /**
+     * LIKELY UNUSED. Any errors raised by a Server impl are handled by the same Server impl.
+     */
     @Override
     public Page handleServerError(Exception error, String URI, NanoHTTPD.IHTTPSession session) {
         return super.handleServerError(error, URI, session);
