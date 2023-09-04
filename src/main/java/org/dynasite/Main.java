@@ -3,6 +3,7 @@ package org.dynasite;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.dynasite.server.FileServer;
+import org.dynasite.server.HostServer;
 import org.dynasite.server.Server;
 import org.dynasite.server.ServerStack;
 
@@ -21,7 +22,7 @@ public class Main {
                 new FileServer(new File("C:/Users/lukem/Desktop/WebServerFiles2"))
         );
 
-        Dynasite dynasite = new Dynasite(80, server);
+        Dynasite dynasite = new Dynasite(new HostServer(80, server));
         dynasite.start();
 
         LOG.info("Site started at: " + dynasite.getHostURL());

@@ -1,6 +1,6 @@
 package org.dynasite;
 
-import fi.iki.elonen.NanoHTTPD;
+import org.dynasite.server.HostServer;
 import org.dynasite.server.Server;
 
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 public class Dynasite {
 
-    public static String host = "http://localhost";
+    public static String hostname = "http://localhost";
 
     public static int timeout = 1000; //Default 1 second timeout
 
@@ -19,12 +19,13 @@ public class Dynasite {
 
     private final Server server;
 
-    private final NanoServer nanoServer;
+    private final HostServer host;
 
-    public Dynasite(int port, Server server) {
-        this.port = port;
-        this.server = Objects.requireNonNull(server);
-        this.nanoServer = new NanoServer();
+    public Dynasite(HostServer host) {
+        this.port = host.getPort();
+        this.host = Objects.requireNonNull(host);
+        this.server = Objects.requireNonNull(host.getServer());
+
     }
 
     @SuppressWarnings("unused")
@@ -38,26 +39,15 @@ public class Dynasite {
     }
 
     public String getHostURL() {
-        return host + ":" + this.port;
+        return hostname + ":" + this.port;
     }
 
     public void start() {
         try {
-            nanoServer.start(timeout, false);
+            host.start(timeout, false);
         } catch (IOException e) {
             server.handleServerError(e, null, null);
         }
     }
 
-    private class NanoServer extends NanoHTTPD {
-
-        public NanoServer() {
-            super(Dynasite.this.port);
-        }
-
-        @Override
-        public Response serve(IHTTPSession session) {
-            return Dynasite.this.server.serve(session);
-        }
-    }
 }
