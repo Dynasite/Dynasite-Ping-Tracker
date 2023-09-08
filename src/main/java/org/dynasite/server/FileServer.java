@@ -38,11 +38,11 @@ public class FileServer extends Server {
     @Override
     public Page servePage(String uri, Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
         String requestedFilePath = folder.getAbsolutePath() + uri;
-        LOG.info("Attempting to serve file @ " + requestedFilePath);
+        LOG.trace("Attempting to serve file @ " + requestedFilePath);
 
         File requestedFile = new File(requestedFilePath);
         if(requestedFile.exists() && requestedFile.isFile()) {
-            LOG.info("Found file: " + requestedFile.getAbsolutePath());
+            LOG.trace("Serving file: " + requestedFile.getAbsolutePath());
             return new FilePage(requestedFile);
         } else {
             LOG.warn("Couldn't find file: " + requestedFile.getAbsolutePath());
