@@ -50,4 +50,12 @@ public class Dynasite {
         }
     }
 
+    public void stop() {
+        host.stop();
+    }
+
+    public boolean isAlive() {
+        return host.isAlive();
+    }
+
 }
