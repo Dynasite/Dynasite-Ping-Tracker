@@ -1,0 +1,22 @@
+{
+  "description": "Yet Another Test Simp. ",
+  "simping-spree": true,
+
+  "grading": {
+    "grade": "F",
+    "comment": "Simps a lot."
+  },
+
+  "activity": {
+    "current": 500.0,
+    "previous": 400.0
+  },
+
+  "history": {
+    "height": 300,
+    "graph": {
+      "2021": 50.0,
+      "2023": 500
+    }
+  }
+}

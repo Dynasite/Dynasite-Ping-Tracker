@@ -36,7 +36,7 @@ public class CSSPage extends Page {
         return getCSSResponse(css);
     }
 
-    protected Response getCSSResponse(String CSS) {
-        return NanoHTTPD.newFixedLengthResponse(Response.Status.OK, MIME_CSS, CSS);
+    protected Response getCSSResponse(String css) {
+        return NanoHTTPD.newFixedLengthResponse(Response.Status.OK, MIME_CSS, css);
     }
 }
