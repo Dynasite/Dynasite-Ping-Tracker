@@ -1,6 +1,8 @@
 package org.dynasite.server;
 
 import fi.iki.elonen.NanoHTTPD;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.dynasite.Dynasite;
 import org.dynasite.page.ErrorPage;
 import org.dynasite.page.Page;
@@ -17,6 +19,8 @@ import java.util.Objects;
  * {@link Dynasite#start() started}.
  */
 public class HostServer extends NanoHTTPD {
+
+    private static final Logger LOG = LogManager.getLogger();
 
     private final Server server;
 
@@ -59,6 +63,8 @@ public class HostServer extends NanoHTTPD {
 
     private NanoHTTPD.Response _serve(NanoHTTPD.IHTTPSession session) {
         String uri = urlMap.remapURI(session.getUri(), session.getHeaders(), session);
+        LOG.debug("Attempting to serve url: " + uri +
+                ". For: " + session.getRemoteHostName() + "(" + session.getRemoteIpAddress() + ")");
 
         if(uri == null)
             uri = session.getUri();

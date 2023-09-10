@@ -1,6 +1,8 @@
 package org.dynasite.page;
 
 import fi.iki.elonen.NanoHTTPD;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URI;
 import java.util.Map;
@@ -18,6 +20,8 @@ import java.util.Map;
  */
 public abstract class Page {
 
+    private static final Logger LOG = LogManager.getLogger();
+
     /**
      * Default {@link Page} displayed when a {@link org.dynasite.server.Server}
      * cannot find another Page to display. Reassign this variable to change
@@ -27,6 +31,7 @@ public abstract class Page {
 
         @Override
         public NanoHTTPD.Response getPageResponse(Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
+            LOG.debug("Serving 404 for url: " + session.getUri());
             return NanoHTTPD.newFixedLengthResponse(
                     NanoHTTPD.Response.Status.NOT_FOUND, NanoHTTPD.MIME_HTML, "<h1>Page Not Found!</h1>"
             );

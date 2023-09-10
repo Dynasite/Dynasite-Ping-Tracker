@@ -25,14 +25,14 @@ public class ResourceServer extends Server {
     @Override
     public Page servePage(String uri, Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
         String resourcePath = this.resourceLocation + uri;
-        LOG.trace("Attempting to serve resource @ " + resourcePath);
+        LOG.debug("Attempting to serve resource @ " + resourcePath);
 
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
 
         InputStream is = classloader.getResourceAsStream(resourcePath);
 
         if(isAvailable(is)) {
-            LOG.trace("Serving resource: " + resourcePath);
+            LOG.debug("Serving resource: " + resourcePath);
             return new ResourcePage(is, resourcePath);
         } else {
             LOG.warn("Cannot find resource: " + resourcePath);
