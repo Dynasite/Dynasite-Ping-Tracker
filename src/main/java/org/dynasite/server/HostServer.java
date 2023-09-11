@@ -7,7 +7,6 @@ import org.dynasite.Dynasite;
 import org.dynasite.page.ErrorPage;
 import org.dynasite.page.Page;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -31,17 +30,13 @@ public class HostServer extends NanoHTTPD {
     /**
      * Creates a new host server on the given port and hosts
      * the given top level server. A default {@link URLMap}
-     * is implied, which just maps a blank URI to an index.html
-     * page.
+     * is implied, which does NOT remap any URLS.
      *
      * @param port the port to host on.
      * @param server the top level {@link Server} implementation.
      */
     public HostServer(int port, Server server) {
-        this(port, server, new SimpleURLMap(new HashMap<>(){{
-            this.put("/", "/index.html");
-        }}));
-
+        this(port, server, URLMap.EMPTY_URL_MAP);
         this.port = port;
     }
 

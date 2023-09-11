@@ -13,6 +13,29 @@ import java.util.Map;
 public abstract class URLMap {
 
     /**
+     * A {@link URLMap} implementation which does nothing (i.e. remaps NO URLS).
+     */
+    public static final URLMap EMPTY_URL_MAP = new URLMap() {
+        @Override
+        public String remapURI(String uri, Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
+            return uri;
+        }
+    };
+
+    /**
+     * A simple {@link URLMap} which maps requests to a blank uri (/)
+     * to "index.html".
+     */
+    public static final URLMap INDEX_PAGE_MAP = new URLMap() {
+        @Override
+        public String remapURI(String uri, Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
+            if(uri.equals("/"))
+                return "/index.html";
+            else return uri;
+        }
+    };
+
+    /**
      * Allows changing an input {@code uri} to another
      * URI, or leaving it unchanged.
      *
