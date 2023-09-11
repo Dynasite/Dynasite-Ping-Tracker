@@ -59,7 +59,7 @@ public class HostServer extends NanoHTTPD {
     private NanoHTTPD.Response _serve(NanoHTTPD.IHTTPSession session) {
         String uri = urlMap.remapURI(session.getUri(), session.getHeaders(), session);
         LOG.debug("Attempting to serve url: " + uri +
-                ". For: " + session.getRemoteHostName() + "(" + session.getRemoteIpAddress() + ")");
+                "  For: " + session.getRemoteHostName() + "(" + session.getRemoteIpAddress() + ")");
 
         if(uri == null)
             uri = session.getUri();
