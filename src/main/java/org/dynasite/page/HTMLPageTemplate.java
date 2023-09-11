@@ -28,11 +28,26 @@ public abstract class HTMLPageTemplate extends HTMLPage {
 
     // Static Methods
 
-    protected static String loadFromFile(File file) throws IOException {
-        return new String(Files.readAllBytes(file.toPath()));
+    protected static String loadFromFile(File file) throws TemplateNotFoundException {
+        try {
+            return new String(Files.readAllBytes(file.toPath()));
+        } catch (IOException e) {
+            throw new TemplateNotFoundException("File: " + file.getAbsolutePath() + " cannot be found", e);
+        }
     }
 
-    protected static String loadFromResource(String path) throws IOException {
-        return new String(Objects.requireNonNull(HTMLPage.class.getResourceAsStream(path)).readAllBytes());
+    protected static String loadFromResource(String path) throws TemplateNotFoundException {
+        try {
+            return new String(Objects.requireNonNull(HTMLPage.class.getResourceAsStream(path)).readAllBytes());
+        } catch (IOException | NullPointerException e) {
+            throw new TemplateNotFoundException("Resource: " + path + " cannot be found", e);
+        }
+    }
+
+    public static class TemplateNotFoundException extends RuntimeException {
+
+        public TemplateNotFoundException(String message, Exception cause) {
+            super(message, cause);
+        }
     }
 }
