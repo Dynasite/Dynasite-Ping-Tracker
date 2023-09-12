@@ -10,6 +10,10 @@ import java.util.Objects;
 
 public abstract class HTMLPageTemplate extends HTMLPage {
 
+    public static String tokenOpen = "{#";
+
+    public static String tokenClose = "}";
+
     public HTMLPageTemplate(String html) {
         super(html);
         this.html = setupResponse(html);
@@ -49,5 +53,9 @@ public abstract class HTMLPageTemplate extends HTMLPage {
         protected TemplateNotFoundException(String message, Exception cause) {
             super(message, cause);
         }
+    }
+
+    public static String token(String tokenName) {
+        return tokenOpen + tokenName.toUpperCase() + tokenClose;
     }
 }
