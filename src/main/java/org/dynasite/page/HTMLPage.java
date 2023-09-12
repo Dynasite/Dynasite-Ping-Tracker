@@ -23,15 +23,15 @@ public class HTMLPage extends Page {
 
     // Class
 
-    protected String html;
+    protected String js;
 
     public HTMLPage(String html) {
-        this.html = Objects.requireNonNull(html);
+        this.js = Objects.requireNonNull(html);
     }
 
     @Override
     public Response getPageResponse(Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
-        return getHTMLResponse(html);
+        return getHTMLResponse(js);
     }
 
     protected Response getHTMLResponse(String html) {

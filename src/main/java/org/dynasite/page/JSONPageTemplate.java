@@ -8,26 +8,26 @@ import java.nio.file.Files;
 import java.util.Map;
 import java.util.Objects;
 
-public abstract class HTMLPageTemplate extends HTMLPage {
+public abstract class JSONPageTemplate extends JSONPage {
 
     public static String tokenOpen = "{#";
 
     public static String tokenClose = "}";
 
-    public HTMLPageTemplate(String html) {
-        super(html);
-        this.js = setupResponse(html);
+    public JSONPageTemplate(String json) {
+        super(json);
+        this.json = setupResponse(json);
     }
 
     @Override
     public NanoHTTPD.Response getPageResponse(Map<String, String> headers, NanoHTTPD.IHTTPSession session) {
-        return super.getHTMLResponse(formatResponse(this.js, session));
+        return super.getJSONResponse(formatResponse(this.json, session));
     }
 
-    protected abstract String formatResponse(String html, NanoHTTPD.IHTTPSession session);
+    protected abstract String formatResponse(String json, NanoHTTPD.IHTTPSession session);
 
-    protected String setupResponse(String html) {
-        return html;
+    protected String setupResponse(String json) {
+        return json;
     }
 
     // Static Methods
@@ -42,7 +42,7 @@ public abstract class HTMLPageTemplate extends HTMLPage {
 
     protected static String loadFromResource(String path) throws TemplateNotFoundException {
         try {
-            return new String(Objects.requireNonNull(HTMLPageTemplate.class.getResourceAsStream(path)).readAllBytes());
+            return new String(Objects.requireNonNull(JSONPageTemplate.class.getResourceAsStream(path)).readAllBytes());
         } catch (IOException | NullPointerException e) {
             throw new TemplateNotFoundException("Resource: " + path + " cannot be found", e);
         }
