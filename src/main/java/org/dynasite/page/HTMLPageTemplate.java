@@ -46,7 +46,7 @@ public abstract class HTMLPageTemplate extends HTMLPage {
 
     public static class TemplateNotFoundException extends RuntimeException {
 
-        public TemplateNotFoundException(String message, Exception cause) {
+        protected TemplateNotFoundException(String message, Exception cause) {
             super(message, cause);
         }
     }
