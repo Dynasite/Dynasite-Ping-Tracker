@@ -8,12 +8,35 @@ import java.nio.file.Files;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * JSON Templates with token replacement, which can be loaded from file, resource, or String.
+ * <br>
+ *
+ * A basic template for {@link JSONPage JSONPages}, which allows
+ * manipulating the response JSON before being served, with {@link
+ * #setupResponse(String)} and {@link #formatResponse(String, NanoHTTPD.IHTTPSession)}.
+ * With support for simple string token replacement, to create dynamic JSON pages which
+ * can be tailored to specific responses.
+ */
 public abstract class JSONPageTemplate extends JSONPage {
 
+    /**
+     * Denotes the opening tag for a token. Can be changed.
+     * Used with {@link #token(String)}
+     */
     public static String tokenOpen = "{#";
 
+    /**
+     * Denotes the closing tag for a token. Can be changed.
+     * Used with {@link #token(String)}
+     */
     public static String tokenClose = "}";
 
+    /**
+     * Creates a new JSON Template with a JSON String.
+     *
+     * @param json the JSON String.
+     */
     public JSONPageTemplate(String json) {
         super(json);
         this.json = setupResponse(json);
@@ -24,14 +47,37 @@ public abstract class JSONPageTemplate extends JSONPage {
         return super.getJSONResponse(formatResponse(this.json, session));
     }
 
+    /**
+     * Used to format the JSON response text <b>each time the page is served</b>.
+     * This is where you should replace String tokens, insert {@link Snippet snippets},
+     * and do all other formatting which needs to be done when the page is served to a
+     * new client.
+     *
+     * @param json pre-formatted JSON response text.
+     * @param session session object (with information about the client and connection)
+     * @return post-formatted JSON response text. Don't return {@code null}.
+     */
     protected abstract String formatResponse(String json, NanoHTTPD.IHTTPSession session);
 
+    /**
+     * Used to format the JSON response text <b>once when initialized</b>.
+     * The formatted JSON will then be passed to {@link #formatResponse(String, NanoHTTPD.IHTTPSession)}.
+     * This is where you do all the ONE TIME formatting for the JSON.
+     *
+     * @param json the original pre-formatted JSON response text.
+     * @return post-formatted JSON response text. Don't return {@code null}.
+     */
     protected String setupResponse(String json) {
         return json;
     }
 
     // Static Methods
 
+    /**
+     * Helper method to get JSON text from a file on disk.
+     *
+     * @throws TemplateNotFoundException if the file cannot be found.
+     */
     protected static String loadFromFile(File file) throws TemplateNotFoundException {
         try {
             return new String(Files.readAllBytes(file.toPath()));
@@ -40,6 +86,11 @@ public abstract class JSONPageTemplate extends JSONPage {
         }
     }
 
+    /**
+     * Helper method to get JSON text from a resource file in the jar.
+     *
+     * @throws TemplateNotFoundException if the file cannot be found.
+     */
     protected static String loadFromResource(String path) throws TemplateNotFoundException {
         try {
             return new String(Objects.requireNonNull(JSONPageTemplate.class.getResourceAsStream(path)).readAllBytes());
@@ -48,6 +99,9 @@ public abstract class JSONPageTemplate extends JSONPage {
         }
     }
 
+    /**
+     * Helper method to tokenize names. E.g. input "token-name" outputs "{#TOKEN-NAME}"
+     */
     public static String token(String tokenName) {
         return tokenOpen + tokenName.toUpperCase() + tokenClose;
     }
