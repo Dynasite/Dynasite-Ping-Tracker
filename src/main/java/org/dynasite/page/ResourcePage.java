@@ -9,6 +9,9 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * A {@link FilePage}, but for files contained in jars (resource streams).
+ */
 public class ResourcePage extends Page {
 
     private static final Logger LOG = LogManager.getLogger();

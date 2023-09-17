@@ -12,12 +12,22 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * A {@link FileServer}, but for files contained within the jar.
+ */
 public class ResourceServer extends Server {
 
     private static final Logger LOG = LogManager.getLogger();
 
     private final String resourceLocation;
 
+    /**
+     * Constructs a new server to serve the resources at the given
+     * location.
+     *
+     * @param resourceLocation the location where the resources are
+     *                        stored (e.g. /path/folder)
+     */
     public ResourceServer(String resourceLocation) {
         this.resourceLocation = Objects.requireNonNull(resourceLocation);
     }
