@@ -9,6 +9,32 @@ import java.util.Calendar;
 import java.util.Objects;
 import java.util.Properties;
 
+/**
+ * Mailer class used to send emails to one or more clients.
+ * <p>
+ * A basic {@link Mailer} can be constructed with an email and
+ * app password as below: <br>
+ * {@code
+ *     Mailer mailer = new Mailer(new PasswordAuthentication(
+ *                 ORIGIN_EMAIL, ORIGIN_PASSWORD
+ *         ));
+ * }
+ * <p>
+ * A message to be mailed can be built with a {@link
+ * org.dynasite.mail.MailScheduler.MailBuilder} as such: <br>
+ * {@code
+ *      MessageBuilder message = mailer.newMessageBuilder()
+ *                 .setSenderName("NAME")
+ *                 .setSubjectText("SUBJECT")
+ *                 .setText("TEXT.")
+ *                 .setDescription("HEADER");
+ * }
+ * <p>
+ * The message can then be sent to one or more email addresses using:
+ * <br> {@code
+ *      message.send(new InternetAddress(DESTINATION_EMAIL));
+ * }
+ */
 @SuppressWarnings("unused")
 public final class Mailer {
 

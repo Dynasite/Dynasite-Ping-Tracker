@@ -5,7 +5,7 @@ import org.quartz.impl.StdSchedulerFactory;
 
 import javax.mail.internet.InternetAddress;
 
-//0 8 * * *
+
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public class MailScheduler implements Job {
 
