@@ -6,11 +6,12 @@ plugins {
     id("idea")
 }
 
-group = "org.dynasite"
+group = "org.site"
+var entryClass = "Main"
 version = "1.0-SNAPSHOT"
 
 application {
-    mainClass.set("$group.Main")
+    mainClass.set("$group.$entryClass")
 }
 
 repositories {
