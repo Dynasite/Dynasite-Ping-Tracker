@@ -34,6 +34,9 @@ dependencies {
     //Mailing Framework
     implementation("com.sun.mail:javax.mail:1.6.2")
     implementation("org.quartz-scheduler:quartz:2.3.2")
+
+    //Json data
+    implementation("com.google.code.gson:gson:2.10.1")
 }
 
 tasks.test {
