@@ -6,7 +6,7 @@ plugins {
     id("idea")
 }
 
-group = "org.site"
+group = "org.pingtracker"
 var entryClass = "Main"
 version = "1.0-SNAPSHOT"
 
