@@ -2,7 +2,10 @@ package org.pingtracker;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.dynasite.Dynasite;
+import org.dynasite.server.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.*;
 import java.util.*;
@@ -43,10 +46,27 @@ public class Main {
         PING_RECORDS.add(new PingRecord("NORTH AMERICA (1)", "45.33.2.79"));
     }
 
+    private static final HomePage homePage = new HomePage(PING_RECORDS);
+
+
+
+    private static Server server;
+
     public static void main(String[] args) {
         LOG.info("Starting Ping Tracker...");
+        LOG.info("File: " + System.getProperty("user.dir") + "/Bootstrap");
 
-        
+        server = new ServerStack(
+                new StaticServer(new HashMap<>(){{
+                    put("/", homePage);
+                }}),
+                new FileServer(new File(System.getProperty("user.dir") + "\\assets"))
+        );
+
+        Dynasite dynasite = new Dynasite(new HostServer(80, server));
+        dynasite.start();
+
+        LOG.info("Hosting on: " + dynasite.getHostURL());
     }
 
 
