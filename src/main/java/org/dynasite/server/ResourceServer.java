@@ -3,9 +3,11 @@ package org.dynasite.server;
 import fi.iki.elonen.NanoHTTPD;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.dynasite.page.HTMLPageTemplate;
 import org.dynasite.page.Page;
 import org.dynasite.page.ResourcePage;
 import org.jetbrains.annotations.Nullable;
+import org.pingtracker.Main;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,9 +39,7 @@ public class ResourceServer extends Server {
         String resourcePath = this.resourceLocation + uri;
         LOG.debug("Attempting to serve resource @ " + resourcePath);
 
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-
-        InputStream is = classloader.getResourceAsStream(resourcePath);
+        InputStream is = this.getClass().getResourceAsStream(resourcePath);
 
         if(isAvailable(is)) {
             LOG.debug("Serving resource: " + resourcePath);
@@ -59,6 +59,7 @@ public class ResourceServer extends Server {
             int a = is.available();
             return a > 0;
         } catch (IOException e) {
+            LOG.debug("IOException checking resource for resource server:", e);
             return false;
         }
     }

@@ -35,7 +35,7 @@ public class Main {
         PING_RECORDS.add(new PingRecord("LONDON", "192.221.154.0"));
         PING_RECORDS.add(new PingRecord("MUNICH", "82.135.31.211"));
 
-        PING_RECORDS.add(new PingRecord("São Paulo", "132.255.73.248"));
+        PING_RECORDS.add(new PingRecord("BRAZIL", "132.255.73.248"));
 
         PING_RECORDS.add(new PingRecord("CHICAGO", "50.229.170.233"));
         PING_RECORDS.add(new PingRecord("TORONTO", "205.171.3.26"));
@@ -48,20 +48,14 @@ public class Main {
 
     private static final HomePage homePage = new HomePage(PING_RECORDS);
 
-
-
-    private static Server server;
+    private static final Server server = new ServerStack(
+            new StaticServer(new HashMap<>(){{
+                put("/", homePage);
+            }}), new ResourceServer("/assets")
+    );
 
     public static void main(String[] args) {
         LOG.info("Starting Ping Tracker...");
-        LOG.info("File: " + System.getProperty("user.dir") + "/Bootstrap");
-
-        server = new ServerStack(
-                new StaticServer(new HashMap<>(){{
-                    put("/", homePage);
-                }}),
-                new FileServer(new File(System.getProperty("user.dir") + "\\assets"))
-        );
 
         Dynasite dynasite = new Dynasite(new HostServer(80, server));
         dynasite.start();
