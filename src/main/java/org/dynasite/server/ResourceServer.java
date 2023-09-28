@@ -41,6 +41,10 @@ public class ResourceServer extends Server {
 
         InputStream is = this.getClass().getResourceAsStream(resourcePath);
 
+        if(is == null) {
+            is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourcePath);
+        }
+
         if(isAvailable(is)) {
             LOG.debug("Serving resource: " + resourcePath);
             return new ResourcePage(is, resourcePath);
@@ -48,7 +52,6 @@ public class ResourceServer extends Server {
             LOG.warn("Cannot find resource: " + resourcePath);
             return null;
         }
-
     }
 
     private static boolean isAvailable(@Nullable InputStream is) {
