@@ -1,0 +1,167 @@
+/*
+Copyright (C) 2019 Luke Melaia
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/* Header CSS */
+
+.page {
+    background-color: #141626;
+}
+
+.nav-item {
+    color: black;
+    border-bottom: 3px solid darkorange;
+    margin-left: 5px;
+}
+
+.active {
+    border-bottom: 3px solid blueviolet;
+}
+
+.nav-item:hover {
+    border-bottom: 3px solid gray;
+}
+
+.active:hover {
+    border-bottom: 3px solid blueviolet;
+}
+
+/* CSV Import Controls */
+
+.controls{
+    margin: 10px;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+}
+
+.basic-cs {
+   border-top-right-radius: 8px;
+   border-top-left-radius: 8px;
+   margin-left: -16px;
+   margin-right: -16px;
+   padding-top: 5px;
+   padding-bottom: 5px;
+}
+
+.advanced-cs {
+   background-color: lightblue;
+   border-top-right-radius: 8px;
+   border-top-left-radius: 8px;
+   margin-left: -16px;
+   margin-right: -16px;
+   padding-top: 5px;
+   padding-bottom: 5px;
+}
+
+/* Misc */
+
+.material-icons {
+    vertical-align: middle !important;
+}
+
+.styleless {
+    background-color: transparent;
+    border: 0px;
+}
+
+#instructions {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    font-size: 30px;
+}
+
+#instructions-list {
+    padding-left: 25%;
+    padding-right: 25%;
+    
+    margin-top: 30px;
+}
+
+/* Footer */
+.page-footer {
+    background-color: rgb(0, 77, 204)
+}
+
+.footer-copyright {
+    color: lightgray;
+}
+
+/* Tables */
+
+.table-title {
+    background-color: sandybrown;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 0px;
+}
+
+.table-holder {
+    margin-top: 20px;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    border-bottom: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.tables {
+    margin-bottom: 50px;
+}
+
+table {
+    width: 100%;
+    border-bottom: 0px;
+}
+
+table, th, td {
+    border: 1px solid lightgrey;
+    border-collapse: collapse;
+}
+
+table tr:nth-child(even) {
+    background-color: white;
+}
+
+table tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+table th {
+    background-color: #e1e1e1;
+    color: black;
+}
+
+/* Sections */
+
+.section {
+    box-shadow: 10px 10px 10px 10px;
+    background-color: #e5e5e5;
+    padding: 10px;
+    padding-top: 20px;
+    font-size: 18px;
+}
+
+.section-lightgrey {
+    background-color: #f9f9f9;
+}
+
+/* Misc */
+
+.boxshadow {
+    box-shadow: 2px 2px 2px 2px;
+}

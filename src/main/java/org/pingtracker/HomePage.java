@@ -10,7 +10,7 @@ public class HomePage extends HTMLPageTemplate {
     private final List<PingRecord> pingRecords;
 
     public HomePage(List<PingRecord> pingRecords) {
-        super(loadFromResource("/index.html"));
+        super(loadFromResource("/assets/index.html"));
         this.pingRecords = pingRecords;
     }
 

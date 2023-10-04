@@ -49,13 +49,14 @@ public class PingRecord {
 
     public synchronized float getLoss() { return -1F; }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static long[] pingIP(String ip, int pings, int timeout) {
         long[] returnPings = new long[pings];
 
         for(int i = 0; i < pings; i++) {
             long start = System.currentTimeMillis();
             try {
-                boolean isPinged = InetAddress.getByName(ip).isReachable(DEFAULT_TIMEOUT); // 2 seconds
+                InetAddress.getByName(ip).isReachable(DEFAULT_TIMEOUT); // 2 seconds
             } catch (SocketTimeoutException e) {
                 returnPings[i] = -1;
                 continue;
